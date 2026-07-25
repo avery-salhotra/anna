@@ -1,14 +1,44 @@
 # Anna
 
-This workspace includes agent skills for discovering capabilities and guiding
-software projects from initial design through delivery.
+This repository contains Anna's code-first UX portfolio, built with the
+Next.js App Router.
+
+## Prerequisites and local development
+
+- Node.js 22 (the repository's `.nvmrc` selects the required major version)
+- npm
+
+Install dependencies and run the app locally:
+
+```sh
+npm install
+npm run dev
+```
+
+Run the current checks:
+
+```sh
+npm test
+npm run build
+npm run verify
+```
+
+The project-root `@/*` import alias uses the `paths` mapping in
+`tsconfig.json`, without the obsolete `baseUrl` option. TypeScript is pinned
+to 6.0.3: Next.js 16.2.11's build-time package check does not recognize the
+TypeScript 7 package layout. Dependabot groups available `next` and
+`typescript` updates into one weekly pull request; CI runs the same `npm run
+verify` gate used locally, which determines whether that proposed pair is
+compatible. Node runtime types are pinned to the Node 22 line
+(`@types/node@22.20.1`) to match local development, CI, and deployment.
 
 ## Portfolio project
 
 The approved design for the code-first UX portfolio is documented in
 [`docs/superpowers/specs/2026-07-24-ux-portfolio-design.md`](docs/superpowers/specs/2026-07-24-ux-portfolio-design.md).
-Requirements validation and implementation planning are complete; application
-implementation has not started.
+Requirements validation and implementation planning are complete. The tested
+Next.js foundation is in place; later tasks add the portfolio's content and
+interface.
 The plan has also received independent architecture and parallel-execution
 reviews. Their remediations are incorporated into the roadmap.
 Project case studies will use root-level URLs such as `/sample-project/`.
@@ -51,7 +81,8 @@ The implementation roadmap is documented in
 The dependency-safe worktree, atomic-PR, CI, and independent-review protocol is
 documented in
 [`docs/superpowers/plans/2026-07-24-parallel-worktree-execution.md`](docs/superpowers/plans/2026-07-24-parallel-worktree-execution.md).
-No worktrees or application branches have been created yet.
+The bootstrap work is isolated on a task branch; subsequent implementation
+tasks continue to use isolated worktrees and atomic branches.
 
 ## Local workflow skills
 
