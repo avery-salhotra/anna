@@ -1,0 +1,11 @@
+.worktrees/
+.superpowers/sdd/
+.superpowers/brainstorm/
+.agents/
+skills-lock.json
+node_modules/
+.next/
+test-results/
+playwright-report/
+.lighthouseci/
+.vercel/
