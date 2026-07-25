@@ -21,6 +21,7 @@ Run the current checks:
 npm test
 npm run build
 npm run verify
+npm run check:dependabot
 ```
 
 The project-root `@/*` import alias uses the `paths` mapping in
@@ -30,7 +31,12 @@ TypeScript 7 package layout. Dependabot groups available `next` and
 `typescript` updates into one weekly pull request; CI runs the same `npm run
 verify` gate used locally, which determines whether that proposed pair is
 compatible. Node runtime types are pinned to the Node 22 line
-(`@types/node@22.20.1`) to match local development, CI, and deployment.
+(`@types/node@22.20.1`) to match local development, CI, and deployment. CI
+tests the proposed Next.js/TypeScript pair; Dependabot separately ignores only
+semver-major `@types/node` updates, keeping type definitions on the deployed
+Node major while allowing Node 22 patch and minor updates. `npm run
+check:dependabot` validates that guard with the declared Node YAML parser, and
+the shared `npm run verify` gate runs that check in CI.
 
 ## Portfolio project
 

@@ -13,7 +13,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test:watch": "vitest",
-    "verify": "npm test && npm run typecheck && npm run build"
+    "check:dependabot": "node scripts/check-dependabot-node-types-guard.mjs",
+    "verify": "npm run check:dependabot && npm test && npm run typecheck && npm run build"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +40,7 @@
     "jsdom": "29.1.1",
     "typescript": "6.0.3",
     "vite": "8.1.5",
-    "vitest": "4.1.10"
+    "vitest": "4.1.10",
+    "yaml": "2.9.0"
   }
 }
