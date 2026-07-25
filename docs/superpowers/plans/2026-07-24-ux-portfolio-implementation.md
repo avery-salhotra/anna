@@ -48,9 +48,10 @@
   merge protocol in
   `docs/superpowers/plans/2026-07-24-parallel-worktree-execution.md`.
 - `npm run verify` is the evolving full gate. The PR that introduces a new
-  suite must add it to `verify` and CI, so authors and independent reviewers run
-  unit, type, build, component, browser, accessibility, visual, and performance
-  checks as those suites become available.
+  suite must add it to `verify`; CI invokes that same script, so authors and
+  independent reviewers run unit, type, build, component, browser,
+  accessibility, visual, and performance checks as those suites become
+  available.
 
 ---
 
@@ -137,7 +138,7 @@ npm pkg set scripts.dev="next dev" scripts.build="next build" scripts.start="nex
 npm pkg set scripts.typecheck="tsc --noEmit" scripts.test="vitest run" scripts.test:watch="vitest"
 npm pkg set scripts.verify="npm test && npm run typecheck && npm run build"
 npm install --save-exact next@latest react@latest react-dom@latest zod@latest
-npm install --save-dev --save-exact @testing-library/jest-dom@latest @testing-library/react@latest @testing-library/user-event@latest @types/node@latest @types/react@latest @types/react-dom@latest @vitejs/plugin-react@latest jsdom@latest typescript@6.0.3 vite@latest vitest@latest
+npm install --save-dev --save-exact @testing-library/jest-dom@latest @testing-library/react@latest @testing-library/user-event@latest @types/node@22.20.1 @types/react@latest @types/react-dom@latest @vitejs/plugin-react@latest jsdom@latest typescript@6.0.3 vite@latest vitest@latest
 ```
 
 These commands resolve current compatible releases once, write exact versions
@@ -145,8 +146,9 @@ to `package.json`, and commit `package-lock.json`. TypeScript is intentionally
 pinned to `6.0.3`: Next.js 16.2.11's build-time package check does not
 recognize TypeScript 7's package layout. The alias configuration omits the
 obsolete `baseUrl` option, so it retains a TypeScript 7-ready shape. Create
-`.nvmrc` containing `22`. All CI and reviewer installs use `npm ci`; no
-dependency specifier remains `latest`.
+`.nvmrc` containing `22`. Pin `@types/node` to `22.20.1` so server-side types
+match the Node 22 runtime used locally, in CI, and on deployment. All CI and
+reviewer installs use `npm ci`; no dependency specifier remains `latest`.
 
 Run: `git init` if `git rev-parse --is-inside-work-tree` does not return
 `true`, then create the initial branch with `git branch -M main`.
@@ -214,9 +216,9 @@ request actionable only when the proposed dependency pair passes.
 
 Create `.github/workflows/ci.yml` on `pull_request` and pushes to `main` using
 `actions/checkout`, `actions/setup-node` with Node 22 and npm cache, then
-`npm ci`, `npm run typecheck`, `npm test`, and `npm run build`. Later tasks
-extend this same required workflow as browser, accessibility, visual, and
-performance gates become available.
+`npm ci` and `npm run verify` as the sole project gate. Later tasks extend
+that same script as browser, accessibility, visual, and performance gates
+become available.
 
 - [ ] **Step 5: Verify the focused test and production build**
 

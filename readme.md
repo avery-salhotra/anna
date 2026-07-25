@@ -20,14 +20,17 @@ Run the current checks:
 ```sh
 npm test
 npm run build
+npm run verify
 ```
 
 The project-root `@/*` import alias uses the `paths` mapping in
 `tsconfig.json`, without the obsolete `baseUrl` option. TypeScript is pinned
 to 6.0.3: Next.js 16.2.11's build-time package check does not recognize the
 TypeScript 7 package layout. Dependabot groups available `next` and
-`typescript` updates into one weekly pull request; CI's existing `npm run
-verify` check determines whether that proposed pair is compatible.
+`typescript` updates into one weekly pull request; CI runs the same `npm run
+verify` gate used locally, which determines whether that proposed pair is
+compatible. Node runtime types are pinned to the Node 22 line
+(`@types/node@22.20.1`) to match local development, CI, and deployment.
 
 ## Portfolio project
 
