@@ -147,8 +147,11 @@ pinned to `6.0.3`: Next.js 16.2.11's build-time package check does not
 recognize TypeScript 7's package layout. The alias configuration omits the
 obsolete `baseUrl` option, so it retains a TypeScript 7-ready shape. Create
 `.nvmrc` containing `22`. Pin `@types/node` to `22.20.1` so server-side types
-match the Node 22 runtime used locally, in CI, and on deployment. All CI and
-reviewer installs use `npm ci`; no dependency specifier remains `latest`.
+match the Node 22 runtime used locally, in CI, and on deployment. Dependabot
+ignores only semver-major updates for `@types/node`, preserving Node 22 patch
+and minor updates while preventing newer runtime majors from entering through
+an otherwise passing typecheck. All CI and reviewer installs use `npm ci`; no
+dependency specifier remains `latest`.
 
 Run: `git init` if `git rev-parse --is-inside-work-tree` does not return
 `true`, then create the initial branch with `git branch -M main`.
@@ -212,7 +215,12 @@ Create `.github/dependabot.yml` with weekly npm updates. Its
 `next-and-typescript` group includes the `next` and `typescript` patterns so
 their available updates are proposed together. Dependabot does not determine
 compatibility; the existing CI `npm run verify` gate makes a grouped pull
-request actionable only when the proposed dependency pair passes.
+request actionable only when the proposed dependency pair passes. CI validates
+the Next.js/TypeScript pair; the separate `@types/node` major-update ignore
+rule keeps Node definitions aligned with the deployed Node 22 major. The
+`npm run check:dependabot` configuration check parses the document and verifies
+that guard using the declared Node YAML parser; `npm run verify` runs it in the
+same CI gate as the Next.js/TypeScript compatibility checks.
 
 Create `.github/workflows/ci.yml` on `pull_request` and pushes to `main` using
 `actions/checkout`, `actions/setup-node` with Node 22 and npm cache, then
