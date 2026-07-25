@@ -137,13 +137,16 @@ npm pkg set scripts.dev="next dev" scripts.build="next build" scripts.start="nex
 npm pkg set scripts.typecheck="tsc --noEmit" scripts.test="vitest run" scripts.test:watch="vitest"
 npm pkg set scripts.verify="npm test && npm run typecheck && npm run build"
 npm install --save-exact next@latest react@latest react-dom@latest zod@latest
-npm install --save-dev --save-exact @testing-library/jest-dom@latest @testing-library/react@latest @testing-library/user-event@latest @types/node@latest @types/react@latest @types/react-dom@latest @vitejs/plugin-react@latest jsdom@latest typescript@latest vite@latest vitest@latest
+npm install --save-dev --save-exact @testing-library/jest-dom@latest @testing-library/react@latest @testing-library/user-event@latest @types/node@latest @types/react@latest @types/react-dom@latest @vitejs/plugin-react@latest jsdom@latest typescript@6.0.3 vite@latest vitest@latest
 ```
 
 These commands resolve current compatible releases once, write exact versions
-to `package.json`, and commit `package-lock.json`. Create `.nvmrc` containing
-`22`. All CI and reviewer installs use `npm ci`; no dependency specifier remains
-`latest`.
+to `package.json`, and commit `package-lock.json`. TypeScript is intentionally
+pinned to `6.0.3`: Next.js 16.2.11's build-time package check does not
+recognize TypeScript 7's package layout. The alias configuration omits the
+obsolete `baseUrl` option, so it retains a TypeScript 7-ready shape. Create
+`.nvmrc` containing `22`. All CI and reviewer installs use `npm ci`; no
+dependency specifier remains `latest`.
 
 Run: `git init` if `git rev-parse --is-inside-work-tree` does not return
 `true`, then create the initial branch with `git branch -M main`.
@@ -197,9 +200,17 @@ export default function HomePage() {
 ```
 
 Configure `next.config.ts` with `trailingSlash: true`. Configure
-`tsconfig.json` with `"strict": true`, `"baseUrl": "."`, and
-`"paths": { "@/*": ["./*"] }`. Configure Vitest for `jsdom`, React, the same
-alias, and `tests/setup.ts`; import `@testing-library/jest-dom/vitest` there.
+`tsconfig.json` with `"strict": true` and
+`"paths": { "@/*": ["./*"] }`. TypeScript 7 removes the obsolete `baseUrl`
+option; the `paths` mapping provides the project-root alias without it.
+Configure Vitest for `jsdom`, React, the same alias, and `tests/setup.ts`;
+import `@testing-library/jest-dom/vitest` there.
+
+Create `.github/dependabot.yml` with weekly npm updates. Its
+`next-and-typescript` group includes the `next` and `typescript` patterns so
+their available updates are proposed together. Dependabot does not determine
+compatibility; the existing CI `npm run verify` gate makes a grouped pull
+request actionable only when the proposed dependency pair passes.
 
 Create `.github/workflows/ci.yml` on `pull_request` and pushes to `main` using
 `actions/checkout`, `actions/setup-node` with Node 22 and npm cache, then
