@@ -105,6 +105,30 @@ inbox before publication.
 
 ## Local workflow skills
 
+### Engineering apprenticeship
+
+The repository automatically applies the local `engineering-apprenticeship`
+skill to software planning, design, implementation, modification, debugging,
+review, testing, and verification work. No keyword or explicit invocation is
+required. The tracked activation policy and its limited exceptions are defined
+in `AGENTS.md`.
+
+The skill progressively transfers responsibility through four stages: Guided
+Reviewer, Assisted Designer, Technical Owner, and Senior Reviewer. Work moves
+through four human checkpoints: frame one independently testable behavior,
+inspect its failing test, review the minimal verified implementation, and
+perform an independent verification. The human remains the final technical
+owner.
+
+The reusable skill is stored locally at
+`.agents/skills/engineering-apprenticeship/SKILL.md`. The `.agents` directory
+is intentionally ignored, so the skill is not included in commits or GitHub. A
+fresh clone receives the tracked `AGENTS.md` policy and this documentation, but
+not the ignored skill itself; install or recreate the skill locally before
+performing software work in that clone.
+
+### Other local skills
+
 The following skills are installed in the local workspace and are not vendored
 in this repository:
 
