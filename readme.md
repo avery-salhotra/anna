@@ -90,6 +90,19 @@ documented in
 The bootstrap work is isolated on a task branch; subsequent implementation
 tasks continue to use isolated worktrees and atomic branches.
 
+### Profile content contract
+
+The first content-domain slice defines a strict `Profile` contract with required
+`name`, `introduction`, and syntactically valid `email` strings. Validation
+trims surrounding whitespace while preserving meaningful internal content.
+Profile text has no maximum length yet.
+
+TODO: define evidence-based profile content-length limits when the authoring
+experience, storage constraints, or abuse-prevention requirements are known.
+When database- or storage-backed authoring is introduced, add contact-email
+ownership verification using a random, expiring, single-use code sent to the
+inbox before publication.
+
 ## Local workflow skills
 
 The following skills are installed in the local workspace and are not vendored
