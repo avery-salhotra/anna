@@ -176,9 +176,10 @@ conversation before merge, one approval from someone other than the author,
 dismissal of stale approvals after new commits, and enforcement for
 administrators. CodeRabbit's request-changes workflow is enabled in
 `.coderabbit.yaml`: its findings request changes, and it approves after its
-review conversations are resolved. If the repository/account cannot enforce a
-planned setting, document the gap and apply the same rule manually; never claim
-a protection is enabled when it is not.
+review conversations are resolved and its configured pre-merge checks pass. If
+the repository/account cannot enforce a planned setting, document the gap and
+apply the same rule manually; never claim a protection is enabled when it is
+not.
 
 ## Evidence and Browser Claims
 
