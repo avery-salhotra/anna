@@ -2253,10 +2253,10 @@ approvals are dismissed after new commits, required CI checks must pass, and
 only the integrator merges the approved head SHA. The active `main` protection
 also requires verified signatures on every commit, resolution of all
 pull-request review conversations, the `verify` check, and administrator
-enforcement. CodeRabbit review remains a manual requirement until its GitHub
-App emits a stable status check that can be made required. If repository
-permissions do not support branch protection, the integrator enforces the same
-checklist manually and records that limitation truthfully.
+enforcement. Every pull request must also pass the required `CodeRabbit` review
+status. If repository permissions do not support branch protection, the
+integrator enforces the same checklist manually and records that limitation
+truthfully.
 
 - [ ] **Step 2: Verify the repository locally before external setup**
 

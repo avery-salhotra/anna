@@ -43,9 +43,7 @@ before a change can be accepted. The requirement applies to repository
 administrators. Every commit entering `main` must have a verified signature,
 and every pull-request review conversation must be resolved before merge.
 Branch freshness and reviewer approval are not required by this gate.
-CodeRabbit review is intended for every pull request, but it is not yet an
-enforced status check because the CodeRabbit GitHub App has not emitted a
-stable check in this repository.
+Every pull request must also pass the required `CodeRabbit` review status.
 
 ## Portfolio project
 
