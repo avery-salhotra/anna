@@ -38,6 +38,15 @@ Node major while allowing Node 22 patch and minor updates. `npm run
 check:dependabot` validates that guard with the declared Node YAML parser, and
 the shared `npm run verify` gate runs that check in CI.
 
+GitHub protects `main` by requiring the existing `verify` check to succeed
+before a change can be accepted. The requirement applies to repository
+administrators. Every commit entering `main` must have a verified signature,
+and every pull-request review conversation must be resolved before merge.
+Branch freshness and reviewer approval are not required by this gate.
+CodeRabbit review is intended for every pull request, but it is not yet an
+enforced status check because the CodeRabbit GitHub App has not emitted a
+stable check in this repository.
+
 ## Portfolio project
 
 The approved design for the code-first UX portfolio is documented in

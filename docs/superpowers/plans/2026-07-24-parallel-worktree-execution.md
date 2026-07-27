@@ -170,11 +170,16 @@ suites are added, required checks therefore include:
 - approved visual regression checks
 - serialized Lighthouse CI
 
-GitHub branch protection should require passing checks, one approval from
-someone other than the author, and dismissal of stale approvals. If the
-repository/account cannot enforce one of these settings, document the gap and
-apply the same rule manually; never claim a protection is enabled when it is
-not.
+GitHub branch protection requires the `verify` check, verified signatures on
+every commit entering `main`, resolution of every pull-request review
+conversation before merge, and enforcement for administrators. CodeRabbit
+should review every pull request, but its review is not a required status check
+until the installed GitHub App emits a stable check name that branch protection
+can require. The planned gate additionally calls for one approval from someone
+other than the author and dismissal of stale approvals; those approval settings
+are not currently enforced. If the repository/account cannot enforce a planned
+setting, document the gap and apply the same rule manually; never claim a
+protection is enabled when it is not.
 
 ## Evidence and Browser Claims
 
