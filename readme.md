@@ -42,8 +42,10 @@ GitHub protects `main` by requiring the existing `verify` check to succeed
 before a change can be accepted. The requirement applies to repository
 administrators. Every commit entering `main` must have a verified signature,
 and every pull-request review conversation must be resolved before merge.
-Branch freshness and reviewer approval are not required by this gate.
-Every pull request must also pass the required `CodeRabbit` review status.
+Branch freshness is not required by this gate. Every pull request must receive
+one fresh approval; new commits dismiss stale approvals. CodeRabbit's
+request-changes workflow is enabled in `.coderabbit.yaml`, so its findings block
+approval until their review conversations are resolved.
 
 ## Portfolio project
 

@@ -2248,13 +2248,14 @@ git commit -m "test: enforce portfolio performance budgets"
 
 Store this exact checklist in `docs/deployment.md`.
 
-Also document the GitHub merge gate: author and approver must differ, stale
-approvals are dismissed after new commits, required CI checks must pass, and
-only the integrator merges the approved head SHA. The active `main` protection
-also requires verified signatures on every commit, resolution of all
-pull-request review conversations, the `verify` check, and administrator
-enforcement. Every pull request must also pass the required `CodeRabbit` review
-status. If repository permissions do not support branch protection, the
+Also document the GitHub merge gate: required CI checks must pass, and only
+the integrator merges the approved head SHA. The active `main` protection
+requires the author and approver to differ, dismisses stale approvals after new
+commits, and also requires verified signatures on every commit, resolution of
+all pull-request review conversations, the `verify` check, and administrator
+enforcement. CodeRabbit's request-changes workflow is enabled in
+`.coderabbit.yaml`, so its findings block approval until their conversations
+are resolved. If repository permissions do not support branch protection, the
 integrator enforces the same checklist manually and records that limitation
 truthfully.
 

@@ -172,10 +172,11 @@ suites are added, required checks therefore include:
 
 GitHub branch protection requires the `verify` check, verified signatures on
 every commit entering `main`, resolution of every pull-request review
-conversation before merge, the `CodeRabbit` review status, and enforcement for
-administrators. The planned gate additionally calls for one approval from
-someone other than the author and dismissal of stale approvals; those approval
-settings are not currently enforced. If the repository/account cannot enforce a
+conversation before merge, one approval from someone other than the author,
+dismissal of stale approvals after new commits, and enforcement for
+administrators. CodeRabbit's request-changes workflow is enabled in
+`.coderabbit.yaml`: its findings request changes, and it approves after its
+review conversations are resolved. If the repository/account cannot enforce a
 planned setting, document the gap and apply the same rule manually; never claim
 a protection is enabled when it is not.
 
